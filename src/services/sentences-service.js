@@ -2,22 +2,22 @@ import { conflictError } from "../errors/conflict.js"
 import { notFoundError } from "../errors/notFound.js"
 import sentencesRepository from "../repositories/sentences-repository.js"
 
-function getSentences() {
-  const result = sentencesRepository.getSentences()
+async function getSentences() {
+  const result = await sentencesRepository.getSentences()
   return result
 }
 
-function getSentence(id) {
+async function getSentence(id) {
   // Lançar erro se não vierem resultados
-  const result = sentencesRepository.getSentenceById(id)
+  const result = await sentencesRepository.getSentenceById(id)
   if (!result) throw notFoundError("Frase")
   return result
 }
 
-function createSentence(author, sentence) {
+async function createSentence(author, sentence) {
   // Lançar erro se já existir a sentença cadastrada
-  const existingSentence = sentencesRepository.getSentence(sentence)
-  // console.log(existingSentence)
+  const existingSentence = await sentencesRepository.getSentence(sentence)
+  console.log(existingSentence)
   if (existingSentence) throw conflictError("Frase")
 
   return sentencesRepository.createSentence(author, sentence)
