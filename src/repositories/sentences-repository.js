@@ -1,23 +1,28 @@
-let sentences = []
+import { db } from "../configs/db-connection.js"
 
-function getSentences() {
-  return sentences
+async function getSentences() {
+  const sentence = await db.query(`SELECT * FROM sentences;`)
+  return sentence.rows
 }
 
-function getSentenceById(id) {
-  return sentences.find(sentence => sentence.id === id)
+async function getSentenceById(id) {
+  const sentence = await db.query(`SELECT * FROM sentences WHERE id=$1;`, [id])
+  return sentence.rows[0]
 }
 
-function getSentence(targetSentence) {
-  return sentences.find(({ sentence }) => sentence === targetSentence)
+async function getSentence(targetSentence) {
+  const sentence = await db.query(
+    `SELECT * FROM sentences WHERE sentence=$1;`,
+    [targetSentence]
+  )
+  return sentence.rows[0]
 }
 
-function createSentence(author, sentence) {
-  return sentences.push({
-    id: new Date().getTime(),
-    author,
-    sentence
-  })
+async function createSentence(author, sentence) {
+  await db.query(
+    `INSERT INTO sentences (author, sentence) VALUES ($1, $2);`,
+    [author, sentence]
+  )
 }
 
 const sentencesRepository = {

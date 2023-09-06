@@ -3,7 +3,7 @@ import sentencesService from "../services/sentences-service.js"
 import { invalidIdError } from "../errors/invalidId.js"
 import { incompleteDataError } from "../errors/incompleteData.js"
 
-async function getSentences(req, res) {
+function getSentences(req, res) {
   try {
     const sentences = sentencesService.getSentences()
     res.send(sentences)
@@ -12,7 +12,7 @@ async function getSentences(req, res) {
   }
 }
 
-async function getSentence(req, res) {
+function getSentence(req, res) {
   const { id } = req.params // Tratar caso onde o id não é um número inteiro positivo
 
   try {
@@ -34,7 +34,7 @@ async function getSentence(req, res) {
   }
 }
 
-async function createSentence(req, res) {
+function createSentence(req, res) {
   const { body } = req
   const { author, sentence } = body // Tratar caso onde os valores não são preenchidos (ou vazios)
 

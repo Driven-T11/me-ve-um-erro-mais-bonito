@@ -17,6 +17,7 @@ function getSentence(id) {
 function createSentence(author, sentence) {
   // Lançar erro se já existir a sentença cadastrada
   const existingSentence = sentencesRepository.getSentence(sentence)
+  // console.log(existingSentence)
   if (existingSentence) throw conflictError("Frase")
 
   return sentencesRepository.createSentence(author, sentence)
