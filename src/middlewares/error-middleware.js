@@ -15,7 +15,7 @@ export default function errorHandler(error, req, res, next) {
         return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(error.message);
     }
 
-    if (err.type === "invalidId") {
+    if (error.type === "invalidId") {
         return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(err.message)
     }
 
